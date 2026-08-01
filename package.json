@@ -1,0 +1,9 @@
+{
+  "name": "palmares-vitality",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dashboard des titres et cashprize Team Vitality, avec édition protégée par mot de passe.",
+  "dependencies": {
+    "@netlify/blobs": "^10.7.0"
+  }
+}
