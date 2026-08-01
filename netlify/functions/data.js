@@ -7,6 +7,8 @@ const DEFAULT_STATE = {
   nameOverrides: {},
   rowOverrides: {},
   deletedIds: {},
+  manualGames: [],
+  activeOverrides: {},
 };
 
 exports.handler = async (event) => {
@@ -52,7 +54,9 @@ exports.handler = async (event) => {
       body.rowOverrides &&
       typeof body.rowOverrides === 'object' &&
       body.deletedIds &&
-      typeof body.deletedIds === 'object';
+      typeof body.deletedIds === 'object' &&
+      (body.manualGames === undefined || Array.isArray(body.manualGames)) &&
+      (body.activeOverrides === undefined || typeof body.activeOverrides === 'object');
 
     if (!shapeOk) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Format de données invalide' }) };
@@ -64,7 +68,8 @@ exports.handler = async (event) => {
       return { statusCode: 413, body: JSON.stringify({ error: 'Payload trop volumineux' }) };
     }
 
-    await store.setJSON('state', body);
+    const toStore = Object.assign({}, DEFAULT_STATE, body);
+    await store.setJSON('state', toStore);
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ok: true }) };
   }
 
