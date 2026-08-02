@@ -49,6 +49,24 @@ Ajoute ces deux variables :
 Redéploie le site après avoir ajouté ces variables (Netlify le fait
 automatiquement, ou clique "Trigger deploy").
 
+### 3bis. Si tu vois une erreur 502 / "MissingBlobsEnvironmentError"
+C'est un bug documenté et assez courant côté Netlify : la détection
+automatique du contexte de stockage (Blobs) ne fonctionne pas toujours selon
+la façon dont le site a été déployé. La solution fiable est de fournir
+l'accès explicitement, avec deux variables d'environnement de plus :
+
+- `BLOBS_SITE_ID` → Site settings → General → Site details → "Site ID"
+  (un identifiant du type `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
+- `BLOBS_TOKEN` → un jeton d'accès personnel Netlify. Pour le créer :
+  clique sur ton avatar (en haut à droite) → **User settings** →
+  **Applications** → section **Personal access tokens** → **New access
+  token**. Donne-lui un nom (ex: "palmares-vitality-blobs"), génère-le, et
+  copie-le immédiatement (il ne sera plus jamais affiché après).
+
+Ajoute ces deux variables comme les précédentes, puis redéploie. Le code
+détecte automatiquement leur présence et les utilise en priorité — pas
+besoin de rien changer d'autre.
+
 ### 4. C'est en ligne
 Le lien Netlify (ex: `https://ton-site.netlify.app`) est celui à partager.
 Tout le monde qui l'ouvre voit le dashboard en lecture seule. En cliquant sur
