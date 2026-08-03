@@ -80,7 +80,7 @@ exports.handler = async (event) => {
 
       // Basic size guard so a bad payload can't blow up storage
       const size = Buffer.byteLength(event.body || '', 'utf8');
-      if (size > 3 * 1024 * 1024) {
+      if (size > 6 * 1024 * 1024) {
         return { statusCode: 413, body: JSON.stringify({ error: 'Payload trop volumineux' }) };
       }
 
