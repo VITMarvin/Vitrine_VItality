@@ -8,8 +8,7 @@ const DEFAULT_STATE = {
   rowOverrides: {},
   deletedIds: {},
   manualGames: [],
-  activeOverrides: {},
-  exitDateOverrides: {},
+  stintOverrides: {},
 };
 
 function openStore() {
@@ -73,8 +72,7 @@ exports.handler = async (event) => {
         body.deletedIds &&
         typeof body.deletedIds === 'object' &&
         (body.manualGames === undefined || Array.isArray(body.manualGames)) &&
-        (body.activeOverrides === undefined || typeof body.activeOverrides === 'object') &&
-        (body.exitDateOverrides === undefined || typeof body.exitDateOverrides === 'object');
+        (body.stintOverrides === undefined || typeof body.stintOverrides === 'object');
 
       if (!shapeOk) {
         return { statusCode: 400, body: JSON.stringify({ error: 'Format de données invalide' }) };
